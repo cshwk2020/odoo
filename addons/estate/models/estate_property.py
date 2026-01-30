@@ -5,6 +5,28 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Test Model"
 
+    property_type_id = fields.Many2one(
+        "estate.property.type",
+        string="Property Type"
+    )
+
+
+    #
+    partner_id = fields.Many2one("res.partner", string="Buyer", copy=False)
+    user_id = fields.Many2one("res.users", string="Salesperson",
+                                     default=lambda self: self.env.user)
+
+    tag_ids = fields.Many2many( "estate.property.tag", string="Tags" )
+
+    offer_ids = fields.One2many(
+        "estate.property.offer",
+        "property_id",
+        string="Offers",
+    )
+
+
+
+    #
     name = fields.Char(string="Name")
     description = fields.Text(string="Description")
     postcode = fields.Char(string="Postcode")

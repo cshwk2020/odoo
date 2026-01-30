@@ -8,8 +8,10 @@
         <field name="arch" type="xml">
             <search string="Properties">
                 <!-- Search fields -->
+                <field name="property_type_id"/>
                 <field name="name"/>
                 <field name="postcode"/>
+                
 
                 <!-- Filters -->
                 <filter name="available_properties"
@@ -25,6 +27,11 @@
                     <filter name="group_by_postcode"
                             context="{'group_by':'postcode'}"
                             string="Group by Postcode"/>
+                </group>
+                <group>
+                    <filter name="group_by_type"
+                            context="{'group_by':'property_type_id'}"
+                            string="Group by Type"/>
                 </group>
             </search>
         </field>
@@ -46,6 +53,7 @@
                     <t t-name="card">
                         <div class="oe_kanban_card">
 
+                            <strong><field name="property_type_id"/></strong><br/>
 
                             <strong><field name="name"/></strong><br/>
                             <span><field name="postcode"/></span><br/>
@@ -56,6 +64,8 @@
                             <span>Selling: <field name="selling_price"/></span><br/>
                             <span>Available: <field name="date_availability"/></span><br/>
                             <span>Status: <field name="state" widget="statusbar"/></span>
+
+                            <field name="tag_ids"/>
 
                         </div>
                     </t>
@@ -80,7 +90,10 @@
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
+                        <h1><field name="property_type_id"/></h1>
+
                     </div>
+
                     <group>
                         <group>
                             <field name="postcode"/>
@@ -106,14 +119,45 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Empty">
-
+                        <page string="Details">
+                            <group>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </group>
                         </page>
+
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+
+
+    <!-- views/estate_property_views.xml -->
+    <odoo>
+        <record id="view_estate_property_form_inherit_offers" model="ir.ui.view">
+            <field name="name">estate.property.form.inherit.offers</field>
+            <field name="model">estate.property</field>
+            <field name="inherit_id" ref="estate.view_estate_property_form"/>
+            <field name="arch" type="xml">
+                <sheet position="inside">
+                    <notebook>
+                        <page string="Offers">
+                            <field name="offer_ids">
+                                <list editable="bottom">
+                                    <field name="price"/>
+                                    <field name="partner_id"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </field>
+        </record>
+    </odoo>
+
+
 
     <!-- Action -->
     <record id="estate_property_action" model="ir.actions.act_window">
