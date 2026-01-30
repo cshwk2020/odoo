@@ -67,6 +67,7 @@
 
                             <field name="tag_ids"/>
 
+
                         </div>
                     </t>
                 </templates>
@@ -122,6 +123,16 @@
                         <page string="Details">
                             <group>
                                 <field name="tag_ids" widget="many2many_tags"/>
+
+                                <field name="partner_id"/>
+                            </group>
+                        </page>
+
+                        <page string="Areas">
+                            <group>
+                                <field name="living_area"/>
+                                <field name="garden_area"/>
+                                <field name="total_area" readonly="1"/>
                             </group>
                         </page>
 
@@ -149,6 +160,9 @@
                                 <field name="status"/>
                             </list>
                         </field>
+                        <group>
+                        <field  name="best_price" readonly="1"/>
+                        </group>
                     </page>
                 </notebook>
             </sheet>
