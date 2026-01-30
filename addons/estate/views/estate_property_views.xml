@@ -134,28 +134,28 @@
 
 
     <!-- views/estate_property_views.xml -->
-    <odoo>
-        <record id="view_estate_property_form_inherit_offers" model="ir.ui.view">
-            <field name="name">estate.property.form.inherit.offers</field>
-            <field name="model">estate.property</field>
-            <field name="inherit_id" ref="estate.view_estate_property_form"/>
-            <field name="arch" type="xml">
-                <sheet position="inside">
-                    <notebook>
-                        <page string="Offers">
-                            <field name="offer_ids">
-                                <list editable="bottom">
-                                    <field name="price"/>
-                                    <field name="partner_id"/>
-                                    <field name="status"/>
-                                </list>
-                            </field>
-                        </page>
-                    </notebook>
-                </sheet>
-            </field>
-        </record>
-    </odoo>
+    <record id="view_estate_property_form_inherit_offers" model="ir.ui.view">
+        <field name="name">estate.property.form.inherit.offers</field>
+        <field name="model">estate.property</field>
+        <field name="inherit_id" ref="estate.view_estate_property_form"/>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <notebook>
+                    <page string="Offers">
+                        <field name="offer_ids">
+                            <list editable="bottom">
+                                <field name="price"/>
+                                <field name="partner_id"/>
+                                <field name="status"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </field>
+    </record>
+
+
 
 
 
