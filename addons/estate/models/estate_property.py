@@ -1,4 +1,5 @@
 from odoo import api, models, fields
+from odoo.exceptions import UserError
 from datetime import timedelta
 
 class EstateProperty(models.Model):
@@ -64,6 +65,26 @@ class EstateProperty(models.Model):
             record.best_price = max(prices) if prices else float('-inf')
 
 
+    #
+    def action_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("A sold property cannot be cancelled.")
+            elif record.state == 'cancelled':
+                raise UserError("property already cancelled.")
+
+            record.state = 'cancelled'
+        return True
+
+    def action_sold(self):
+        for record in self:
+            if record.state == 'cancelled':
+                raise UserError("A cancelled property cannot be sold.")
+            elif record.state == 'sold':
+                raise UserError("property already sold.")
+
+            record.state = 'sold'
+        return True
 
 
 
