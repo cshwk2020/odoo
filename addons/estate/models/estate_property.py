@@ -13,6 +13,8 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
+
+
     #
     property_type_id = fields.Many2one(
         "estate.property.type",
@@ -24,6 +26,10 @@ class EstateProperty(models.Model):
                               ondelete="set null",
                               copy=False)
 
+    @api.onchange("partner_id")
+    def _onchange_partner_id(self):
+        self.name = "Document for %s" % (self.partner_id.name)
+        self.description = "Default description for %s" % (self.partner_id.name)
 
     user_id = fields.Many2one("res.users",
                               string="Salesperson",
@@ -56,6 +62,7 @@ class EstateProperty(models.Model):
         for record in self:
             prices = record.offer_ids.mapped("price")
             record.best_price = max(prices) if prices else float('-inf')
+
 
 
 
