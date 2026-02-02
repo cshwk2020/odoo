@@ -169,7 +169,7 @@
             <sheet position="inside">
                 <notebook>
                     <page string="Offers">
-                        <field name="offer_ids">
+                        <field name="offer_ids" readonly="state in ('offer_accepted','sold','cancelled')">
                             <list editable="bottom">
                                 <field name="price"/>
                                 <field name="partner_id"/>

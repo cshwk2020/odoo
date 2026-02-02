@@ -136,8 +136,9 @@ class EstateProperty(models.Model):
     living_area = fields.Integer(string="Living Area")
     facades = fields.Integer(string="Facades")
     garage = fields.Boolean(string="Garage")
+
     garden = fields.Boolean(string="Garden")
-    garden_area = fields.Integer(string="Garden Area")
+    garden_area = fields.Integer(string="Garden Area", invisible="not garden")
     garden_orientation = fields.Selection(
         [
             ('north', 'North'),
@@ -145,7 +146,8 @@ class EstateProperty(models.Model):
             ('east', 'East'),
             ('west', 'West'),
         ],
-        string="Garden Orientation"
+        string="Garden Orientation",
+        invisible="not garden"
     )
 
     # Reserved fields
