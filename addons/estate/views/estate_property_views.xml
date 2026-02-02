@@ -85,7 +85,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    
+
                     <field name="state" widget="statusbar"
                            options="{'clickable': true}"
                            statusbar_visible="new,offer_received,offer_accepted,sold,cancelled"/>
@@ -97,7 +97,12 @@
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
-                        <h1><field name="property_type_id"/></h1>
+                        <h1>
+
+                            <field name="property_type_id"
+                                   options="{'no_create': True, 'no_open': True}"/>
+
+                        </h1>
 
                     </div>
 
@@ -130,7 +135,7 @@
                         </page>
                         <page string="Details">
                             <group>
-                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
 
                                 <field name="partner_id"/>
                             </group>

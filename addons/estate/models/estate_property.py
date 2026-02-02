@@ -9,6 +9,7 @@ class EstateProperty(models.Model):
     _description = "Test Model"
     _order = "id desc"
 
+
     #
     total_area = fields.Float( compute="_compute_total_area", store=True )
 
@@ -24,6 +25,7 @@ class EstateProperty(models.Model):
         "estate.property.type",
         string="Property Type"
     )
+
 
 
     partner_id = fields.Many2one( "res.partner",
