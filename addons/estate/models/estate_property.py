@@ -1,5 +1,5 @@
 from odoo import api, models, fields
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from datetime import timedelta
 
 class EstateProperty(models.Model):
@@ -43,6 +43,10 @@ class EstateProperty(models.Model):
         "property_id",
         string="Offers",
     )
+
+
+
+
 
 
     #
@@ -102,6 +106,10 @@ class EstateProperty(models.Model):
         readonly=True,
         copy=False
     )
+
+ 
+
+
     bedrooms = fields.Integer(
         string="Bedrooms",
         default=2
@@ -132,3 +140,22 @@ class EstateProperty(models.Model):
         string="Status",
         default="new" )
 
+
+    #
+    _check_expected_price = models.Constraint(
+        'CHECK(expected_price > 0)',
+        'The property expected price must be strictly positive.',
+    )
+
+    _check_selling_price = models.Constraint(
+        'CHECK(selling_price >= 0)',
+        'The property selling price must be positive.',
+    )
+
+    @api.constrains("selling_price", "expected_price")
+    def _check_selling_price(self):
+        for record in self:
+            if record.selling_price and record.selling_price < record.expected_price * 0.9:
+                raise ValidationError(
+                    "Selling price cannot be lower than 90% of expected price."
+                )
