@@ -1,10 +1,13 @@
+import sys
+from datetime import timedelta
 from odoo import api, models, fields
 from odoo.exceptions import UserError, ValidationError
-from datetime import timedelta
+
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Test Model"
+    _order = "id desc"
 
     #
     total_area = fields.Float( compute="_compute_total_area", store=True )
@@ -22,6 +25,7 @@ class EstateProperty(models.Model):
         string="Property Type"
     )
 
+
     partner_id = fields.Many2one( "res.partner",
                               string="Partner",
                               ondelete="set null",
@@ -29,7 +33,13 @@ class EstateProperty(models.Model):
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
-        self.name = "Document for %s" % (self.partner_id.name)
+
+        if self.partner_id  and self.partner_id.name:
+            self.name = "Document for %s" % (self.partner_id.name)
+        else:
+            self.name = "New Document"
+
+
         self.description = "Default description for %s" % (self.partner_id.name)
 
     user_id = fields.Many2one("res.users",
@@ -52,11 +62,18 @@ class EstateProperty(models.Model):
     #
     name = fields.Char(string="Name")
     # description = fields.Text(string="Description")
-    description = fields.Char(compute="_compute_description")
+    description = fields.Char(
+        compute="_compute_description",
+        store=True)
     @api.depends("partner_id.name")
     def _compute_description(self):
         for record in self:
-            record.description = "Test for partner %s" % record.partner_id.name
+            if record.partner_id and record.partner_id.name:
+                record.description = "Test for partner %s" % record.partner_id.name
+            else:
+                record.description = "Test for partner"
+
+
 
     best_price = fields.Float( string="Best Offer",
                                compute="_compute_best_price",
@@ -66,7 +83,7 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             prices = record.offer_ids.mapped("price")
-            record.best_price = max(prices) if prices else float('-inf')
+            record.best_price = max(prices) if prices else float(-sys.maxsize)
 
 
     #

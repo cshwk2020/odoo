@@ -1,12 +1,14 @@
 <odoo>
 
     <!-- Tree view -->
-    <record id="view_estate_property_type_tree" model="ir.ui.view">
+    <record id="view_estate_property_type_list" model="ir.ui.view">
         <field name="name">estate.property.type.tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <list>
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
+                <field name="property_names"/>
             </list>
         </field>
     </record>
@@ -21,6 +23,19 @@
                     <group>
                         <field name="name"/>
                     </group>
+
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+
                 </sheet>
             </form>
         </field>
@@ -39,3 +54,5 @@
               parent="estate_menu_root"
               action="estate_property_type_action"/>
 </odoo>
+
+
