@@ -62,10 +62,10 @@
 
                             <span>Expected: <field name="expected_price"/></span><br/>
                             <span>Selling: <field name="selling_price"/></span><br/>
-                            <span>Available: <field name="date_availability"/></span><br/>
+                            <span>Available: <field name="date_availability" /></span><br/>
                             <span>Status: <field name="state" widget="statusbar"/></span>
 
-                            <field name="tag_ids"/>
+                            <field name="tag_ids" />
 
 
                         </div>
@@ -139,7 +139,6 @@
                         <page string="Details">
                             <group>
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-
                                 <field name="partner_id"/>
                             </group>
                         </page>
@@ -170,7 +169,7 @@
                 <notebook>
                     <page string="Offers">
                         <field name="offer_ids" readonly="state in ('offer_accepted','sold','cancelled')">
-                            <list editable="bottom">
+                            <list editable="bottom" >
                                 <field name="price"/>
                                 <field name="partner_id"/>
                                 <field name="status"/>

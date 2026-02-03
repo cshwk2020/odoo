@@ -4,8 +4,9 @@
         <field name="name">estate.property.tag.tree</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="name"/>
+            <list editable="bottom">
+                <field name="name" required="1" />
+                <field name="color" required="1" optional="hide" />
             </list>
         </field>
     </record>
@@ -17,8 +18,8 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="color"/>
+                        <field name="name" required="1"/>
+                        <field name="color" required="1"/>
                     </group>
                 </sheet>
             </form>
