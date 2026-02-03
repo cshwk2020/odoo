@@ -133,12 +133,15 @@ class EstateProperty(models.Model):
         string="Bedrooms",
         default=2
     )
-    living_area = fields.Integer(string="Living Area")
+
+    #living_area = fields.Integer(string="Living Area")
+    living_area = fields.Integer(string="Living Area", store=True, index=True)
+
     facades = fields.Integer(string="Facades")
     garage = fields.Boolean(string="Garage")
 
     garden = fields.Boolean(string="Garden")
-    garden_area = fields.Integer(string="Garden Area", invisible="not garden")
+    garden_area = fields.Integer(string="Garden Area")
     garden_orientation = fields.Selection(
         [
             ('north', 'North'),
@@ -146,8 +149,7 @@ class EstateProperty(models.Model):
             ('east', 'East'),
             ('west', 'West'),
         ],
-        string="Garden Orientation",
-        invisible="not garden"
+        string="Garden Orientation"
     )
 
     # Reserved fields

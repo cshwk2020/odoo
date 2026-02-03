@@ -6,12 +6,21 @@ class EstatePropertyOffer(models.Model):
     _description = "Estate Property Offer"
     _order = "price desc"
 
+
+
     # offer price
     price = fields.Float(string="Price")
     _check_offer_price = models.Constraint(
         'CHECK(price > 0)',
         'The property offer price must be strictly positive.',
     )
+
+
+    property_type_id = fields.Many2one( "estate.property.type",
+                                        string="Property Type",
+                                        related="property_id.property_type_id",
+                                        store=True, )
+
 
 
 

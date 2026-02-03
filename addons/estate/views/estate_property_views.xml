@@ -9,11 +9,18 @@
             <search string="Properties">
                 <!-- Search fields -->
                 <field name="property_type_id"/>
+
                 <field name="name"/>
                 <field name="postcode"/>
-                
+
+
 
                 <!-- Filters -->
+                <field name="living_area"
+                       string="Living Area"
+                       filter_domain="[('living_area', '>=', self)]"/>
+
+
                 <filter name="available_properties"
                         domain="[('state','=','new')]"
                         string="Available"/>

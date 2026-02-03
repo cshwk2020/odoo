@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import api, models, fields
 
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
@@ -28,3 +28,24 @@ class EstatePropertyType(models.Model):
         'The name of a property type must be unique.',
     )
 
+    #
+    offer_ids = fields.One2many( "estate.property.offer",
+                                 "property_type_id",
+                                 string="Offers" )
+
+    offer_count = fields.Integer( string="Offer Count",
+                                  compute="_compute_offer_count" )
+
+    offer_count_label = fields.Char( string="Offers",
+                                     compute="_compute_offer_count_label" )
+
+    @api.depends("offer_ids")
+    def _compute_offer_count(self):
+        for record in self:
+            record.offer_count = str(len(record.offer_ids)  )
+
+
+    @api.depends("offer_ids")
+    def _compute_offer_count_label(self):
+        for record in self:
+            record.offer_count_label = f"Offers ({len(record.offer_ids)})"
