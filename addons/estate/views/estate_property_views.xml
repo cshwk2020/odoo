@@ -195,7 +195,9 @@
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="view_estate_property_kanban"/>
         <field name="search_view_id" ref="estate_property_search_view"/>
+        <!-- Context defines default filters -->
 
+        <field name="context" eval="{'search_default_available_properties': 1}"/>
     </record>
 
 

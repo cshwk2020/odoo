@@ -9,8 +9,12 @@
                   decoration-success="status == 'accepted'"
                   decoration-danger="status == 'refused'">
                 <field name="partner_id"/>
-                <field name="price"/>
-                <field name="status"/>
+
+                <field name="price" />
+
+                <!--
+                <field name="status" />
+                -->
                 <field name="property_id"/>
             </list>
         </field>
