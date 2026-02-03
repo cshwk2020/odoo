@@ -4,6 +4,14 @@
         <field name="name">Property Offers</field>
         <field name="res_model">estate.property.offer</field>
         <field name="view_mode">list,form</field>
+
+        <!--
+        entire action block stored in db table, ir....
+        onClick::the action block retrieve with passed the
+                    correct clicked property_type.id as active_id
+        note::no need to wrap with eval(..) because it evaluated as nil and
+            after stored as nil in db, later retrieved active_id always nil
+        -->
         <field name="domain">[('property_type_id', '=', active_id)]</field>
     </record>
 
