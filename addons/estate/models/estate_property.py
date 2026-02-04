@@ -44,9 +44,11 @@ class EstateProperty(models.Model):
 
         self.description = "Default description for %s" % (self.partner_id.name)
 
-    user_id = fields.Many2one("res.users",
+
+    salesperson_id = fields.Many2one("res.users",
                               string="Salesperson",
                               default=lambda self: self.env.user)
+
 
     tag_ids = fields.Many2many( "estate.property.tag", string="Tags" )
 
@@ -57,7 +59,15 @@ class EstateProperty(models.Model):
     )
 
 
-
+    # at_uninstall=True → run your deletion checks even during uninstall.
+    # at_uninstall=False → skip your deletion checks during uninstall, so the module can be removed cleanly
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_allowed(self):
+        for record in self:
+            if record.state not in ('new', 'cancelled'):
+                raise UserError(
+                    "You can only delete properties in state 'New' or 'Cancelled'."
+                )
 
 
 

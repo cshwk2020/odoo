@@ -1,11 +1,10 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer"
     _order = "price desc"
-
 
 
     # offer price
@@ -15,15 +14,10 @@ class EstatePropertyOffer(models.Model):
         'The property offer price must be strictly positive.',
     )
 
-
     property_type_id = fields.Many2one( "estate.property.type",
                                         string="Property Type",
                                         related="property_id.property_type_id",
                                         store=True, )
-
-
-
-
 
     status = fields.Selection(
         [
@@ -72,3 +66,22 @@ class EstatePropertyOffer(models.Model):
 
             offer.status = 'refused'
         return True
+
+
+
+    @api.model
+    def create(self, vals_list): # vals is new db row constructing in progress, not yet insert to db yet
+
+        for vals in vals_list:
+            property = self.env['estate.property'].browse(vals['property_id'])
+
+            # Check if offer amount is lower than existing offers
+            if property.offer_ids and vals.get('price'):
+                max_offer = max(property.offer_ids.mapped('price'))
+                if vals['price'] < max_offer:
+                    raise UserError("Offer must be higher than existing offers.")
+
+            # Update property state
+            property.state = 'offer_received'
+
+        return super().create(vals_list)

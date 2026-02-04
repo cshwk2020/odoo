@@ -72,6 +72,7 @@
                             <span>Available: <field name="date_availability" /></span><br/>
                             <span>Status: <field name="state" widget="statusbar"/></span>
 
+                            <field name="salesperson_id" />
                             <field name="tag_ids" />
 
 
@@ -125,6 +126,7 @@
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                             <field name="state" />
+                            <field name="salesperson_id" />
 
                         </group>
                     </group>
