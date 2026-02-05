@@ -16,19 +16,7 @@ class EstateProperty(models.Model):
         # Call original logic
         res = super().action_sold()
 
-
         # Create a simple invoice
-        move_vals = {
-            'move_type': 'out_invoice',
-            'partner_id': self.buyer_id.id,  # assuming you have buyer_id field
-            'invoice_date': fields.Date.today(),
-            'invoice_line_ids': [(0, 0, {
-                'name': self.name,
-                'quantity': 1,
-                'price_unit': self.selling_price,
-            })],
-        }
-
         move_vals = {
             'move_type': 'out_invoice',
             'partner_id': self.buyer_id.id,
@@ -40,7 +28,6 @@ class EstateProperty(models.Model):
                 'tax_ids': [(6, 0, [])],  # <-- no taxes
             })],
         }
-
 
         invoice = self.env['account.move'].create(move_vals)
 
