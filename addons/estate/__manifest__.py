@@ -1,7 +1,7 @@
 {
     'name': 'Estate',
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base', 'account'],
     'category': 'Estate',
     'sequence': 2,
     'data': [

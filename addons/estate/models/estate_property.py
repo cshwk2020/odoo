@@ -52,11 +52,17 @@ class EstateProperty(models.Model):
 
     tag_ids = fields.Many2many( "estate.property.tag", string="Tags" )
 
-    offer_ids = fields.One2many(
-        "estate.property.offer",
-        "property_id",
-        string="Offers",
-    )
+    offer_ids = fields.One2many("estate.property.offer",
+                                "property_id",
+                                string="Offers")
+
+    invoice_id = fields.Many2one('account.move',
+                                 string="Invoice",
+                                 readonly=True)
+
+    buyer_id = fields.Many2one('res.partner',
+                               string="Buyer",
+                               readonly=True)
 
 
     # at_uninstall=True → run your deletion checks even during uninstall.
@@ -110,6 +116,7 @@ class EstateProperty(models.Model):
         return True
 
     def action_sold(self):
+        print(">>> estate_property::action_sold ")
         for record in self:
             if record.state == 'cancelled':
                 raise UserError("A cancelled property cannot be sold.")
@@ -135,9 +142,6 @@ class EstateProperty(models.Model):
         readonly=True,
         copy=False
     )
-
- 
-
 
     bedrooms = fields.Integer(
         string="Bedrooms",

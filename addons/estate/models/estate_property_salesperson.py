@@ -1,5 +1,6 @@
 from odoo import models, fields
 
+# inherit res.users, use same db table to add property_ids column
 class EstatePropertySalesperson(models.Model):
     _inherit = 'res.users'
 
