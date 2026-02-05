@@ -123,7 +123,21 @@ class EstateProperty(models.Model):
             elif record.state == 'sold':
                 raise UserError("property already sold.")
 
+
+            # Ensure there is an accepted offer
+            accepted_offers = record.offer_ids.filtered(lambda o: o.status == 'accepted')
+            if not accepted_offers:
+                raise UserError("No accepted offer found for this property.")
+
+            # Pick the offer with the maximum price
+            best_offer = max(accepted_offers, key=lambda o: o.price)
+            record.selling_price = best_offer.price
+
+            #record.selling_price = accepted_offer[0].price
+
+            #
             record.state = 'sold'
+
         return True
 
 
