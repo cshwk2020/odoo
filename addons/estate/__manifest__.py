@@ -11,6 +11,7 @@
         'views/estate_property_views.xml',
         'views/estate_property_offer_form.xml',
         'views/users_form_inherit_estate_views.xml',
+        'views/estate_property_kanban_views.xml',
     ],
     'installable': True,
     'application': True,
