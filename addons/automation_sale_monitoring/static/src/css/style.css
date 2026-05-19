@@ -1,0 +1,5 @@
+.o_form_sheet .o_group.force-vertical {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px; /* optional spacing */
+}

@@ -1,0 +1,18 @@
+<odoo>
+    <record id="email_template_sale_order" model="mail.template">
+        <field name="name">Sale Order Quotation Auto</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="subject">Quotation - ${object.name}</field>
+        <field name="email_from">${(object.user_id.email_formatted or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="body_html"><![CDATA[
+            <p>Dear ${object.partner_id.name},</p>
+            <p>Please find attached your quotation ${object.name}.</p>
+            <p>Do not hesitate to contact us if you have any questions.</p>
+            <p>-- ${object.user_id.name}</p>
+        ]]></field>
+        <field name="report_template" ref="sale.action_report_saleorder"/>
+        <field name="report_name">Quotation_${object.name}</field>
+    </record>
+</odoo>
+

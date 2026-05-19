@@ -1,0 +1,110 @@
+<odoo>
+
+    <record id="view_sale_monitoring_search" model="ir.ui.view">
+        <field name="name">sale.monitoring.search</field>
+        <field name="model">sale.monitoring</field>
+        <field name="arch" type="xml">
+            <search string="Sale Monitoring">
+                <field name="sender_email"/>
+                <field name="status"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_sale_monitoring_list" model="ir.ui.view">
+        <field name="name">sale.monitoring.list</field>
+        <field name="model">sale.monitoring</field>
+        <field name="arch" type="xml">
+            <list string="Sale Monitoring" default_order="id desc">
+                <field name="thread_id"/>
+                <field name="sender_email"/>
+                <field name="status"/>
+                <field name="sale_order_id"/>
+                <button name="action_open_sale_order_popup"
+                        type="object"
+                        string="Edit Order"
+                        icon="fa-pencil"
+                        invisible="sale_order_id == False"/>
+
+
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form View -->
+    <record id="view_sale_monitoring_form" model="ir.ui.view">
+        <field name="name">sale.monitoring.form</field>
+        <field name="model">sale.monitoring</field>
+        <field name="arch" type="xml">
+            <form string="Sale Monitoring">
+                <header>
+                    <button name="action_open_sale_order_popup"
+                            type="object"
+                            string="Edit Order"
+                            icon="fa-pencil"
+                            invisible="sale_order_id == False"/>
+
+                    <!-- 如果冇 sale_order_id → Add -->
+                    <button name="action_add_sale_order_popup"
+                            type="object"
+                            string="Add Sale Order"
+                            icon="fa-plus"
+                            invisible="sale_order_id != False"/>
+                </header>
+                <sheet>
+                    <!-- 加 class 強制 vertical -->
+                    <group class="force-vertical">
+                        <field name="thread_id"/>
+                        <field name="email_msg_id"/>
+                        <field name="sender_email"/>
+                        <field name="original_email_message"/>
+                        <field name="status"/>
+                        <field name="ai_parse_text"/>
+                        <field name="ai_mmr_json"/>
+                        <field name="sale_order_id"/>
+                    </group>
+
+                    <group string="Sale Order Lines" class="force-vertical">
+                        <field name="order_line_ids" nolabel="1" readonly="1">
+                            <list>
+                                <field name="product_id"/>
+                                <field name="product_uom_qty"/>
+                                <field name="price_unit"/>
+                                <field name="price_subtotal"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <group string="Original Email Envelope" class="force-vertical">
+                        <field name="original_email_body"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Menu + Action -->
+    <menuitem id="menu_sale_monitoring_root"
+              name="Sale Monitoring"
+              parent="sale.sale_menu_root"
+              sequence="50"/>
+
+    <record id="action_sale_monitoring" model="ir.actions.act_window">
+        <field name="name">Sale Monitoring</field>
+        <field name="res_model">sale.monitoring</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sale_monitoring_search"/>
+    </record>
+
+    <menuitem id="menu_sale_monitoring"
+              name="Monitoring"
+              parent="menu_sale_monitoring_root"
+              action="action_sale_monitoring"
+              sequence="10"/>
+
+</odoo>
