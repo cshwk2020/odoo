@@ -109,7 +109,7 @@ class SaleMonitoring(models.Model):
 
 >### XML View to listing sale monitoring records:
 ```
-<!-- List View -->
+    <!-- List View -->
     <record id="view_sale_monitoring_list" model="ir.ui.view">
         <field name="name">sale.monitoring.list</field>
         <field name="model">sale.monitoring</field>
@@ -139,7 +139,7 @@ class SaleMonitoring(models.Model):
 
 >### XML View to update status of sale monitoring record:
 ```
-<!-- Form View -->
+    <!-- Form View -->
     <record id="view_sale_monitoring_form" model="ir.ui.view">
         <field name="name">sale.monitoring.form</field>
         <field name="model">sale.monitoring</field>
