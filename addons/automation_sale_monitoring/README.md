@@ -28,7 +28,7 @@
      sale_order_id = fields.Many2one("sale.order", string="Linked Sale Order", required=False)
 ```
 
->### If email body information clear to be extracted, model auto-create both sale order and sale monitoring record:
+>### If email body information clear to be extracted, odoo auto-create both sale order and sale monitoring record:
 ```
     @api.model
     def create_order_with_monitoring(self, vals_order, vals_monitoring):
@@ -47,7 +47,7 @@
 ```
 
 
->### If email body unclear and information cannot be extracted, model ONLY create sale monitoring record for staff to follow the case:
+>### If email body unclear and information cannot be extracted, odoo ONLY create sale monitoring record for staff to follow the case:
 ```
     @api.model
     def create_monitoring_only(self, vals_monitoring):
