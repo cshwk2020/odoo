@@ -5,7 +5,16 @@
 
 - After automated email sale order created, automation_sale_monitoring module is used to track status whether the email body is clear enough for success creation of sale order, or need manual fix by staff.
 
->### model status:
+>### Core files:
+
+- model/sale_monitoring.py : keep track of status for auto-creating sale order record, and FK from sale_monitoring to sale_order record.
+
+- model/sale_order_inherit.py : add orm navigtion from sale_order to sale_monitoring record.
+
+- views/sale_monitoring_views.xml : list view and form view for sale_monitoring records.
+
+
+>### model sale_monitoring ~ status:
 ```
     status = fields.Selection([
         ("pending_reply", "Pending Reply"),
@@ -14,7 +23,7 @@
     ], default="pending_fix")
 ```
 
->### model FK linked to Sale Order:
+>### model sale_monitoring ~ FK linked to Sale Order:
 ```
      sale_order_id = fields.Many2one("sale.order", string="Linked Sale Order", required=False)
 ```
