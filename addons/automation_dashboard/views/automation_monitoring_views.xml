@@ -8,9 +8,6 @@
                 <field name="module"/>
                 <field name="status"/>
                 <field name="record_date"/>
-
-
-
             </search>
         </field>
     </record>
@@ -25,24 +22,8 @@
                 <field name="confidence"/>
                 <field name="message"/>
 
-                <!--
-                <field name="thumbnail" widget="image" class="oe_avatar"/>
-                -->
-
                 <field name="record_date"/>
-                <!--
-                <field name="thumbnail" widget="image" class="oe_avatar" options="{'size': [64, 64]}"/>
-                <field name="thumbnail" widget="image" style="max-width:32px; max-height:32px;"/>
-                -->
 
-                <!--
-                button::action_open_ref_modal
-                call model::action_open_ref_modal
-                call tag::open_expense_in_modal
-                call FormViewDialog(
-                    resModel: "hr.expense",
-                    resId: expenseId,....)
-                -->
                 <button name="action_open_ref_modal"
                         type="object"
                         string="Open Ref"
@@ -58,17 +39,13 @@
         <field name="arch" type="xml">
             <form string="Automation Monitoring">
                 <header>
-
-                     
                     <button name="action_open_ref_modal"
                             type="object"
                             string="Open Expense"
                             class="oe_stat_button"
                             icon="fa-external-link"
                             invisible="ref_id == False"/>
-
                 </header>
-
 
                 <sheet>
                     <group>
@@ -85,17 +62,13 @@
 
                     <group colspan="2">
                         <group>
-
                             <div class="oe_title">
                                 <label for="raw_image" string="Raw Image" class="o_form_label"/>
                                 <field name="raw_image" widget="image" nolabel="1"
                                        style="display:block; width:100%; height:auto;"/>
                             </div>
-
-
                         </group>
                         <group>
-
                             <div class="oe_title">
                                 <label for="preocr_image" string="Preprocessed Image" class="o_form_label"/>
                                 <field name="preocr_image" widget="image" nolabel="1"
