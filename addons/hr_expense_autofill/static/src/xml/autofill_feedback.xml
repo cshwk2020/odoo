@@ -1,0 +1,8 @@
+<!-- hr_expense_autofill/static/src/xml/autofill_feedback.xml -->
+<templates xml:space="preserve">
+  <t t-name="hr_expense_autofill.AutofillFeedback">
+    <div class="alert alert-info">
+      <t t-esc="state.msg"/>
+    </div>
+  </t>
+</templates>
