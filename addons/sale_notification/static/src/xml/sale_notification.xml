@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="sale_notification.SaleNotificationButton">
+        <button t-on-click="onClick" class="btn btn-primary">Notify Me</button>
+    </t>
+</templates>
