@@ -1,10 +1,11 @@
-from odoo import models, fields, api
-from odoo.exceptions import UserError
 import requests
 import base64
 import time
-from .config import IMAGE2JSON_URL
 import logging
+
+from odoo import models, fields, api
+from .config import IMAGE2JSON_URL
+
 _logger = logging.getLogger(__name__)
 
 class HrExpense(models.Model):
@@ -171,10 +172,7 @@ class HrExpense(models.Model):
                 "autofill_in_progress": True,
             })
 
-
             expense_dropdowns = self._fetch_expense_dropdowns()
-
-            time.sleep(1)
 
             resp = requests.post(
                 IMAGE2JSON_URL,
@@ -187,13 +185,8 @@ class HrExpense(models.Model):
                 timeout=3
             )
 
-            time.sleep(2)
 
             _logger.critical(f"MYDEBUG...C...::process_autofill_with_image")
-            #
-            #live_data = {'id': 2, 'name': f'Autofill process_autofill_with_image...'}
-            #self._send_bus_notification(live_data)
-            #_logger.critical(f"MYDEBUG...C...::Notification sent: {str(live_data)}")
 
 
 
@@ -205,7 +198,6 @@ class HrExpense(models.Model):
             live_data = {'id': -10, 'name': f'Autofill API Timeout...'}
             self._send_bus_notification(live_data)
             _logger.critical(f"MYDEBUG...D...::Notification sent: {str(live_data)}")
-
 
 
             self.write({
@@ -225,8 +217,6 @@ class HrExpense(models.Model):
                 "autofill_job_state": "failed",
                 "autofill_in_progress": False,
             })
-
-
 
         _logger.critical(f"MYDEBUG...E-RESP...::process_autofill_with_image", resp)
 
@@ -278,10 +268,6 @@ class HrExpense(models.Model):
 
             _logger.critical(f"MYDEBUG...K...::process_autofill_with_image")
 
-            #
-            #live_data = {'id': 5, 'name': 'Autofill Finished...'}
-            #self._send_bus_notification(live_data)
-            #_logger.critical(f"MYDEBUG10::Notification sent: {live_data}")
 
 
 
