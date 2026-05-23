@@ -1,0 +1,146 @@
+<odoo>
+
+    <record id="view_automation_monitoring_search" model="ir.ui.view">
+        <field name="name">automation.monitoring.search</field>
+        <field name="model">automation.monitoring</field>
+        <field name="arch" type="xml">
+            <search string="Automation Monitoring">
+                <field name="module"/>
+                <field name="status"/>
+                <field name="record_date"/>
+
+
+
+            </search>
+        </field>
+    </record>
+
+    <record id="view_automation_monitoring_list" model="ir.ui.view">
+        <field name="name">automation.monitoring.tree</field>
+        <field name="model">automation.monitoring</field>
+        <field name="arch" type="xml">
+            <list string="Automation Monitoring">
+                <field name="module"/>
+                <field name="status"/>
+                <field name="confidence"/>
+                <field name="message"/>
+
+                <!--
+                <field name="thumbnail" widget="image" class="oe_avatar"/>
+                -->
+
+                <field name="record_date"/>
+                <!--
+                <field name="thumbnail" widget="image" class="oe_avatar" options="{'size': [64, 64]}"/>
+                <field name="thumbnail" widget="image" style="max-width:32px; max-height:32px;"/>
+                -->
+
+                <!--
+                button::action_open_ref_modal
+                call model::action_open_ref_modal
+                call tag::open_expense_in_modal
+                call FormViewDialog(
+                    resModel: "hr.expense",
+                    resId: expenseId,....)
+                -->
+                <button name="action_open_ref_modal"
+                        type="object"
+                        string="Open Ref"
+                        class="btn-primary"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_automation_monitoring_form" model="ir.ui.view">
+        <field name="name">automation.monitoring.form</field>
+        <field name="model">automation.monitoring</field>
+        <field name="arch" type="xml">
+            <form string="Automation Monitoring">
+                <header>
+
+                     
+                    <button name="action_open_ref_modal"
+                            type="object"
+                            string="Open Expense"
+                            class="oe_stat_button"
+                            icon="fa-external-link"
+                            invisible="ref_id == False"/>
+
+                </header>
+
+
+                <sheet>
+                    <group>
+                        <field name="module"/>
+                        <field name="status"/>
+                        <field name="confidence"/>
+                        <field name="message"/>
+                        <field name="ref_id"/>
+                        <field name="ref_url" widget="url" string="Reference URL"/>
+                        <field name="record_date"/>
+                        <field name="remark"/>
+                    </group>
+
+
+                    <group colspan="2">
+                        <group>
+
+                            <div class="oe_title">
+                                <label for="raw_image" string="Raw Image" class="o_form_label"/>
+                                <field name="raw_image" widget="image" nolabel="1"
+                                       style="display:block; width:100%; height:auto;"/>
+                            </div>
+
+
+                        </group>
+                        <group>
+
+                            <div class="oe_title">
+                                <label for="preocr_image" string="Preprocessed Image" class="o_form_label"/>
+                                <field name="preocr_image" widget="image" nolabel="1"
+                                       style="display:block; width:100%; height:auto;"/>
+
+                            </div>
+                        </group>
+                    </group>
+
+
+                    <group>
+                        <div class="oe_title">
+                            <label for="submit_screenshot" string="Submit Screenshot" class="o_form_label"/>
+                            <field name="submit_screenshot" widget="image" nolabel="1"
+                                   style="display:block; width:100%; height:auto;"/>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="ocr_text"/>
+                        <field name="ocr_json"/>
+                        <field name="create_date" readonly="1"/>
+                        <field name="write_date" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_automation_monitoring" model="ir.actions.act_window">
+        <field name="name">Automation Monitoring</field>
+        <field name="res_model">automation.monitoring</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_automation_monitoring_root"
+              name="Automation"
+              sequence="10"/>
+
+    <menuitem id="menu_automation_monitoring"
+              name="Monitoring"
+              parent="menu_automation_monitoring_root"
+              action="action_automation_monitoring"
+              sequence="20"/>
+
+
+</odoo>
+
+
