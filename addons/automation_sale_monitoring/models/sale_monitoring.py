@@ -53,8 +53,6 @@ class SaleMonitoring(models.Model):
         """
         order = self.env["sale.order"].create(vals_order)
 
-
-
         _logger.critical(f"py_debug...0...: order=={order}")
 
         vals_monitoring["sale_order_id"] = order.id
@@ -157,9 +155,6 @@ class SaleMonitoring(models.Model):
                 "default_origin": f"Monitoring-{self.id}",
             }
         }
-
-
-
 
 
     # -------------------------------
