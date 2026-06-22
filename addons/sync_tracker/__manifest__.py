@@ -6,7 +6,7 @@
     'author': 'Hung',
     'depends': ['base', 'sale', 'stock'],
     'data': [
-        # 'views/sync_tracker_views.xml',
+
     ],
     'installable': True,
     'application': True,
